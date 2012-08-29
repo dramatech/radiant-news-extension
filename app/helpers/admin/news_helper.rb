@@ -19,7 +19,7 @@ module Admin::NewsHelper
   end
 
   def item_status_or_date(item)
-    if item.status.id == 100
+    if item.published?
       I18n.localize(item.published_at.to_date, :format =>:long)
     else
       item.status.name
