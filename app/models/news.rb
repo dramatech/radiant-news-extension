@@ -11,6 +11,9 @@ module News
         def self.default_page_parts
           PagePart.new(:name => 'body')
         end
+        def self.default_page_fields
+          PageField.new(:name => 'description')
+        end
 
         def parent_path
           unless self.parent.nil?

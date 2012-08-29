@@ -1,6 +1,10 @@
 %p.title
   = label :news_page, :title, 'Title'
   = object.text_field :title, :class => 'textbox', :maxlength => 255, :id => 'news_page_slug'
+  .drawer
+    .drawer_contents#attributes
+      %table.fieldset
+        = render :partial => 'admin/page_fields/page_field', :collection => model.fields
   %span.hint= %{#{t('slug')}: <span id="this_slug">#{model.slug}</span>}
 - object.fields_for :parts do |p|
   %p.content
