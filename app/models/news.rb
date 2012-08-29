@@ -12,7 +12,7 @@ module News
           PagePart.new(:name => 'body')
         end
         def self.default_page_fields
-          PageField.new(:name => 'description')
+          PageField.new(:name => 'Description')
         end
 
         def parent_path
