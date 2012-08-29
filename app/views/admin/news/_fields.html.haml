@@ -1,0 +1,32 @@
+%p.title
+  = label :news_page, :title, 'Title'
+  = object.text_field :title, :class => 'textbox', :maxlength => 255, :id => 'news_page_slug'
+  %span.hint= %{#{t('slug')}: <span id="this_slug">#{model.slug}</span>}
+- object.fields_for :parts do |p|
+  %p.content
+    = p.label :content, 'Body'
+    = p.hidden_field :name, :value => 'body' if model.new_record?
+    = p.text_area :content, :class => 'textarea large', :style => 'width: 100%'
+  %p
+    = p.label :filter_id, t('filter'), :for => 'body_filter_id'
+    = p.select :filter_id, filter_options_for_select(model.parts[0].filter_id), {}, :id => 'body_filter_id'
+    %span.reference_links
+      = t('reference')
+      %span{:id => "filter_reference_link_body"}
+        = link_to_function t('filter'), "loadFilterReference();"
+      %span{:id => "tag_reference_link_body"}
+        = link_to_function t('available_tags'), "loadTagReference('body');"
+%span
+  = object.label :parent_path, t('news_type')
+  = object.select :parent_path, news_type_options_for_select
+%span
+  = object.label :status_id, t('status')
+  = object.select :status_id, status_to_display
+%span#published_at{:class => (model.published? ? nil : 'hidden')}
+  = object.label :published_at, t('published_on')
+  = object.text_field :published_at, :class=> "date", :value => (model.published_at? ? I18n.localize(model.published_at.to_date, :format =>:long) : nil)
+%p.buttons{:style=>"clear: left"}
+  = save_model_button(model)
+  = save_model_and_continue_editing_button(model)
+  = t('or')
+  = link_to t('cancel'), admin_news_url

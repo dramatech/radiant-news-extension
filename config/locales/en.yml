@@ -1,3 +1,7 @@
 ---
 en:
+  edit_news: Edit News Item
+  new_news: New News Item
   news: News
+  news_type: News Type
+  no_news: No News Here

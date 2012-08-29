@@ -12,11 +12,10 @@ class NewsExtension < Radiant::Extension
   extension_config do |config|
   end
 
-  cattr_accessor :news_types
+  cattr_accessor :news_types, :news_paths
 
-  @@news_types ||= []
-  @@news_types += ['General']
-  @@news_types.uniq!
+  @@news_types ||= ['General']
+  @@news_paths ||= ['/news/']
 
   def activate
     MenuRenderer.exclude 'NewsPage'

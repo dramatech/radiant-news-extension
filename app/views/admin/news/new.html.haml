@@ -1,0 +1,4 @@
+%h1= t('new_news')
+- form_for [:admin, model], :url => admin_news_url do |f|
+  =render 'fields', :object => f
+= render 'admin/news/edit_scripts'
