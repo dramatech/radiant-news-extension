@@ -4,7 +4,7 @@
   .drawer
     .drawer_contents#attributes
       %table.fieldset
-        = render :partial => 'admin/page_fields/page_field', :collection => model.fields
+        = render :partial => 'admin/news_fields/news_field', :collection => model.fields
   %span.hint= %{#{t('slug')}: <span id="this_slug">#{model.slug}</span>}
 - object.fields_for :parts do |p|
   %p.content

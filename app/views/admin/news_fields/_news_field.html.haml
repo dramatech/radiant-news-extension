@@ -1,0 +1,8 @@
+%tr
+  %th.label
+    %label{:for=>"news_#{news_field.name}"}= news_field.name
+  %td.field
+    = hidden_field_tag "news_page[fields_attributes][#{news_field_counter}][id]", news_field.id, :id => "news_fields_attributes_#{news_field_counter}_id" unless news_field.new_record?
+    = hidden_field_tag "news_page[fields_attributes][#{news_field_counter}][name]", news_field.name, :id => "news_fields_attributes_#{news_field_counter}_name", :class => "news_field_name"
+    = hidden_field_tag "news_page[fields_attributes][#{news_field_counter}][_destroy]", news_field._destroy, :class => 'delete_input'
+    ~ text_field_tag "news_page[fields_attributes][#{news_field_counter}][content]", news_field.content, :id => "news_fields_attributes_#{news_field_counter}_content", :class => "textbox", :maxlength => 200
