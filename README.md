@@ -1,6 +1,6 @@
 # News
 
-[![Build Status](https://secure.travis-ci.org/SamWhited/radiant-news-extension.png)](http://travis-ci.org/SamWhited/radiant-news-extension)
+[![Build Status](https://secure.travis-ci.org/dramatech/radiant-news-extension.png)](http://travis-ci.org/dramatech/radiant-news-extension)
 
 News is an extension for [Radiant CMS](http://radiantcms.org) that
 adds a new page type for news items and allows you to create news
