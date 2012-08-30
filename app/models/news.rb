@@ -23,7 +23,7 @@ module News
           end
         end
         def parent_path=(path)
-          self.parent_id = Page.find_by_path(path).id
+          self.parent_id = Page.find_by_path(path).try(:id)
         end
       }
     end
@@ -79,7 +79,7 @@ module News
     end
 
     def set_breadcrumb
-      self.breadcrumb = self.slug
+      self.breadcrumb = self.title
     end
   end
 end
