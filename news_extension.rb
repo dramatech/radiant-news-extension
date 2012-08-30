@@ -21,7 +21,7 @@ class NewsExtension < Radiant::Extension
     MenuRenderer.exclude 'NewsPage'
 
     tab 'Content' do
-      add_item "News", "/admin/news", :after => "Pages"
+      add_item "News", "/admin/news", :after => "Pages", :visibility => [:developer, :admin]
     end
 
     Page.class_eval do      
