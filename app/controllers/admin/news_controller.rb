@@ -8,6 +8,6 @@ class Admin::NewsController < Admin::NewsResourceController
   private
   
   def edit_model_path
-    edit_admin_news_path(params[:id])
+    edit_admin_news_instance_path(params[:id])
   end
 end
