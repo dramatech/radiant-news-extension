@@ -32,6 +32,20 @@ class NewsExtension < Radiant::Extension
       include NewsTags
     end
 
+    if ArchivePage
+      ArchivePage.class_eval do
+        alias_method :child_path_original, :child_path
+        def child_path(child)
+          if (NewsExtension.news_paths.include?(self.path) && child.news?)
+            child_path_original(child)
+          else
+            # Page.child_path(child)
+            clean_path(path + '/' + child.slug)
+          end
+        end
+      end
+    end
+
     Admin::NodeHelper.module_eval do
       def render_node_with_news(page, locals = {})
         unless page.news?
