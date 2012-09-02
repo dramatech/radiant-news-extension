@@ -56,7 +56,7 @@ class NewsExtension < Radiant::Extension
     end
     SiteController.class_eval do
       def self.news_cache_timeout
-        @news_cache_timeout ||= 365.days
+        @news_cache_timeout ||= 7.days
       end
       def self.news_cache_timeout=(val)
         @news_cache_timeout = val
