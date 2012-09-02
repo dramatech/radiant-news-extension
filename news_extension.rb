@@ -32,7 +32,7 @@ class NewsExtension < Radiant::Extension
       include NewsTags
     end
 
-    if ArchivePage
+    if defined? ArchivePage
       ArchivePage.class_eval do
         alias_method :child_path_original, :child_path
         def child_path(child)
