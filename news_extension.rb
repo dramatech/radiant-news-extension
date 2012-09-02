@@ -36,11 +36,12 @@ class NewsExtension < Radiant::Extension
       ArchivePage.class_eval do
         alias_method :child_path_original, :child_path
         def child_path(child)
-          if (NewsExtension.news_paths.include?(self.path) && child.news?)
-            child_path_original(child)
-          else
+          cleaned_path = clean_path(self.path)
+          if (NewsExtension.news_paths.any? { |i| clean_path(i) == cleaned_path } && !child.news?)
             # Page.child_path(child)
             clean_path(path + '/' + child.slug)
+          else
+            child_path_original(child)
           end
         end
       end
