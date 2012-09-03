@@ -1,0 +1,6 @@
+- unless @page.virtual?
+  %tr
+    %td
+    %td.field
+      = f.check_box :contains_news, {@page.new_record? && :checked => ''}
+      = f.label :contains_news, t('contains_news')

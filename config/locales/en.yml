@@ -1,5 +1,6 @@
 ---
 en:
+  contains_news: Contains News Items
   edit_news: Edit News Item
   new_news: New News Item
   news: News

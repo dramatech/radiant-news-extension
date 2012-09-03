@@ -9,13 +9,13 @@ class NewsExtension < Radiant::Extension
 
   # See your config/routes.rb file in this extension to define custom routes
 
-  extension_config do |config|
+  Radiant::Config['news.paths'] ||= '/news/'
+  def self.news_paths
+    Radiant::Config['news.paths'].split(',')
   end
-
-  cattr_accessor :news_types, :news_paths
-
-  @@news_types ||= ['General']
-  @@news_paths ||= ['/news/']
+  def self.news_paths=(paths)
+    Radiant::Config['news.paths'] = paths.join(',')
+  end
 
   def activate
     MenuRenderer.exclude 'NewsPage'
@@ -23,6 +23,13 @@ class NewsExtension < Radiant::Extension
     tab 'Content' do
       add_item "News", "/admin/news", :after => "Pages", :visibility => [:developer, :admin]
     end
+
+    begin
+      [Page, ArchivePage].each do |page_type|
+        page_type.send(:include, PageExtensions)
+      end
+    end
+    admin.page.edit.add :extended_metadata, 'admin/pages/news_meta_fields'
 
     Page.class_eval do      
       def news?
