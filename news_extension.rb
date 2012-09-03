@@ -36,7 +36,6 @@ class NewsExtension < Radiant::Extension
     end
 
     if defined?(ArchiveExtension)
-      ArchivePage.send(:include, PageExtensions)
       ArchivePage.class_eval do
         alias_method :child_path_original, :child_path
         def child_path(child)
