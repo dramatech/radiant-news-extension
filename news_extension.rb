@@ -24,11 +24,7 @@ class NewsExtension < Radiant::Extension
       add_item "News", "/admin/news", :after => "Pages", :visibility => [:developer, :admin]
     end
 
-    begin
-      [Page, ArchivePage].each do |page_type|
-        page_type.send(:include, PageExtensions)
-      end
-    end
+    Page.send(:include, PageExtensions)
     admin.page.edit.add :extended_metadata, 'admin/pages/news_meta_fields'
 
     Page.class_eval do      
@@ -40,6 +36,7 @@ class NewsExtension < Radiant::Extension
     end
 
     if defined?(ArchiveExtension)
+      ArchivePage.send(:include, PageExtensions)
       ArchivePage.class_eval do
         alias_method :child_path_original, :child_path
         def child_path(child)
