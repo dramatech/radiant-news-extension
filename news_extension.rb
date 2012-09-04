@@ -7,24 +7,45 @@ class NewsExtension < Radiant::Extension
   description RadiantNewsExtension::DESCRIPTION
   url         RadiantNewsExtension::URL
 
-  def self.news_paths
-    (Radiant::Config['news.paths'] || '').split(',')
+  # See your config/routes.rb file in this extension to define custom routes
+
+  extension_config do |config|
   end
-  def self.news_paths=(paths)
-    Radiant::Config['news.paths'] = paths.join(',')
-  end
+
+  cattr_accessor :news_types, :news_paths
+
+  @@news_types ||= ['General']
+  @@news_paths ||= ['/news/']
 
   def activate
     MenuRenderer.exclude 'NewsPage'
 
     tab 'Content' do
-      add_item 'News', '/admin/news', :after => 'Pages', :visibility => [:developer, :admin]
+      add_item "News", "/admin/news", :after => "Pages", :visibility => [:developer, :admin]
     end
 
-    ArchivePage.send(:include, ArchivePageExtensions) if defined? ArchiveExtension
-    Page.send(:include, PageExtensions)
-    admin.page.edit.add :extended_metadata, 'admin/pages/news_meta_fields'
+    Page.class_eval do      
+      def news?
+        self.is_a?(News::Instance)
+      end
 
+      include NewsTags
+    end
+
+    if defined?(ArchiveExtension)
+      ArchivePage.class_eval do
+        alias_method :child_path_original, :child_path
+        def child_path(child)
+          cleaned_path = clean_path(path)
+          if (NewsExtension.news_paths.any? { |i| clean_path(i) == cleaned_path } && !child.news?)
+            # Page.child_path(child)
+            clean_path(path + '/' + child.slug)
+          else
+            child_path_original(child)
+          end
+        end
+      end
+    end
 
     Admin::NodeHelper.module_eval do
       def render_node_with_news(page, locals = {})
