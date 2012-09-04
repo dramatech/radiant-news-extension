@@ -7,11 +7,8 @@ class NewsExtension < Radiant::Extension
   description RadiantNewsExtension::DESCRIPTION
   url         RadiantNewsExtension::URL
 
-  # See your config/routes.rb file in this extension to define custom routes
-
-  Radiant::Config['news.paths'] ||= '/news/'
   def self.news_paths
-    Radiant::Config['news.paths'].split(',')
+    (Radiant::Config['news.paths'] || '').split(',')
   end
   def self.news_paths=(paths)
     Radiant::Config['news.paths'] = paths.join(',')
